@@ -1,0 +1,10 @@
+class CreateProfils < ActiveRecord::Migration[8.1]
+  def change
+    create_table :profils do |t|
+      t.text :dietary_preferences
+      t.references :user, null: false, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
