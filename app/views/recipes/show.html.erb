@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h5><%= @recipe.title %></h5>
+
+  <p><%= @recipe.content %></p>
+
+  <ul>
+    <li><strong>Ingredients:</strong> <%= @recipe.ingredients %></li>
+    <li><strong>Calories:</strong> <%= @recipe.calories %></li>
+    <li><strong>Meal type:</strong> <%= @recipe.meal_type %></li>
+  </ul>
+
+  <%= link_to "Back to recipes", recipes_path, class: "btn btn-secondary" %>
+  <%= button_to "Delete", recipe_path(@recipe), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+</div>
