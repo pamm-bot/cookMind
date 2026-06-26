@@ -1,14 +1,28 @@
-<div class="container mt-4">
-  <h5><%= @recipe.title %></h5>
+<div class="container-fluid mt-4">
+  <div class="row">
 
-  <p><%= @recipe.content %></p>
+    <!-- Colonne gauche -->
+    <div class="col-3 border-end">
+      <h6 class="fw-bold">Retrieve your favorites recipes</h6>
+    </div>
 
-  <ul>
-    <li><strong>Ingredients:</strong> <%= @recipe.ingredients %></li>
-    <li><strong>Calories:</strong> <%= @recipe.calories %></li>
-    <li><strong>Meal type:</strong> <%= @recipe.meal_type %></li>
-  </ul>
+    <!-- Colonne droite : détail de la recette génére par l'ia -->
+    <div class="col-9 p-4">
+      <h4 class="fw-bold"><%= @recipe.title %></h4>
 
-  <%= link_to "Back to recipes", recipes_path, class: "btn btn-secondary" %>
-  <%= button_to "Delete", recipe_path(@recipe), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+      <p class="mt-3"><%= @recipe.content %></p>
+
+      <ul class="list-unstyled mt-3">
+        <li><strong>Ingredients:</strong> <%= @recipe.ingredients %></li>
+        <li><strong>Calories:</strong> <%= @recipe.calories %></li>
+        <li><strong>Meal type:</strong> <%= @recipe.meal_type %></li>
+      </ul>
+
+      <div class="mt-4">
+        <%= link_to "Back to recipes", recipes_path, class: "btn btn-secondary" %>
+        <%= button_to "Delete", recipe_path(@recipe), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+
+  </div>
 </div>
