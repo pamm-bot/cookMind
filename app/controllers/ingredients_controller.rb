@@ -2,6 +2,7 @@ class IngredientsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profil
   def index
+    @ingredients = Array(@profil.ingredients)
   end
 
   def create
