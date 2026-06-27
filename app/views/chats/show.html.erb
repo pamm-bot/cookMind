@@ -1,0 +1,10 @@
+<h1 class="text-center mt-4" id="chat_title"><%= @chat.title %></h1>
+
+<div id="new_message_container">
+  <div class="col-6 mx-auto text-center">
+  <%= simple_form_for [@chat, @message] do |f| %>
+    <%= f.input :content, label: "Ask for a recipe !", required: true %>
+    <%= f.button :submit, 'Ask cookMind AI', class: 'btn btn-primary' %>
+  <% end %>
+  </div>
+</div>
