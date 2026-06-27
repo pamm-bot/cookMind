@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-6">
+
+      <h5 class="fw-bold mb-4">My Profile</h5>
+
+      <%= form_with model: @profil, url: profil_path(@profil), method: :patch do |f| %>
+
+        <div class="mb-3">
+          <%= f.label :dietary_preferences, "Dietary preferences" %>
+          <%= f.text_field :dietary_preferences, class: "form-control", placeholder: "Ex: vegetarian, gluten-free, halal..." %>
+        </div>
+
+        <%= f.submit "Save", class: "btn btn-success" %>
+
+      <% end %>
+
+      <%= link_to "Cancel", profil_path(@profil), class: "btn btn-secondary ms-2" %>
+
+    </div>
+  </div>
+</div>
