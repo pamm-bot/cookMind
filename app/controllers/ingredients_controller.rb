@@ -6,6 +6,10 @@ class IngredientsController < ApplicationController
   end
 
   def create
+    @profil.ingredients = Array(@profil.ingredients)
+    @profil.ingredients << params[:ingredient]
+    @profil.save
+    redirect_to ingredients_path
   end
 
   def destroy
