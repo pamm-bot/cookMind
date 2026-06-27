@@ -13,6 +13,10 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
+    @profil.ingredients = Array(@profil.ingredients)
+    @profil.ingredients.delete_at(params[:id].to_i)
+    @profil.save
+    redirect_to ingredients_path
   end
 
   private
