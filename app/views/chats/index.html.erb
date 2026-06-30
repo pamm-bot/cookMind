@@ -1,0 +1,13 @@
+<div class="container mt-4">
+  <h5>My Chats</h5>
+
+  <%= button_to "New Chat", chats_path, method: :post, class: "btn btn-success mb-3" %>
+
+  <ul class="list-unstyled">
+    <% @chats.each do |chat| %>
+      <li>
+        <%= link_to chat.title, chat_path(chat) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

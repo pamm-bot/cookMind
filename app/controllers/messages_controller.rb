@@ -4,7 +4,6 @@ class MessagesController < ApplicationController
   def create
     @chat = current_user.chats.find(params[:chat_id])
 
-    # Save the user's message
     @user_message = Message.new(
       role: "user",
       content: params[:message][:content],
@@ -12,11 +11,9 @@ class MessagesController < ApplicationController
     )
     @user_message.save
 
-    # Fetch ingredients and dietary preferences
     ingredients = Array(current_user.profil.ingredients)
     dietary_preferences = current_user.profil.dietary_preferences.presence || "No specific dietary preferences"
 
-    # Build the prompt for the AI
     prompt = <<~TEXT
       The user has the following ingredients available:
       #{ingredients.join(", ")}
@@ -29,12 +26,10 @@ class MessagesController < ApplicationController
       Format your response in Markdown.
     TEXT
 
-    # Call the AI
     ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
     ai_chat.with_instructions("You are a professional chef. Provide clear, structured recipes in Markdown.")
     response = ai_chat.ask(prompt)
 
-    # Save the AI's response
     @ai_message = Message.new(
       role: "assistant",
       content: response.content,
