@@ -26,7 +26,7 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/cookmind_test
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/cookmind_test
 
     steps:
       - name: Checkout code

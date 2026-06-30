@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 
   def create
     @chat = current_user.chats.find(params[:chat_id])
-
     @user_message = Message.new(
       role: "user",
       content: params[:message][:content],
