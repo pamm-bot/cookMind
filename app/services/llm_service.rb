@@ -1,8 +1,8 @@
 class LlmService
   def initialize
     @client = RubyLLM::Client.new(
-      api_key: ENV["OPENAI_API_KEY"],
-      base_url: ENV["LLM_BASE_URL"]
+      api_key: ENV.fetch("OPENAI_API_KEY", nil),
+      base_url: ENV.fetch("LLM_BASE_URL", nil)
     )
   end
 

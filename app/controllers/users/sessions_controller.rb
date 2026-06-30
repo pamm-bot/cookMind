@@ -1,10 +1,12 @@
-class Users::SessionsController < Devise::SessionsController
-  before_action :redirect_if_authenticated, only: [:new]
+module Users
+  class SessionsController < Devise::SessionsController
+    before_action :redirect_if_authenticated, only: [:new]
 
-  private
+    private
 
-  def redirect_if_authenticated
-    if user_signed_in?
+    def redirect_if_authenticated
+      return unless user_signed_in?
+
       redirect_to root_path, alert: "You are already logged in!"
     end
   end
