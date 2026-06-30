@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :profils, only: [:show, :edit, :update]
   resources :recipes, only: [:index, :show]
 
-  resources :ingredients, only: [:index, :create, :destroy]
+  resources :ingredients, only: [:index, :new, :create, :destroy]
 
   resources :chats, only: [:index, :show, :create] do
     resources :messages, only: [:create]
