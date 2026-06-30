@@ -37,7 +37,10 @@
             </button>
 
             <div class="dropdown-menu dropdown-menu-end">
+              <% if current_user.profil.present? %>
               <%= link_to "Profile", profil_path(current_user.profil), class: "dropdown-item" %>
+              <% end %>
+
               <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>
           </li>
