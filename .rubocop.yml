@@ -9,6 +9,7 @@ AllCops:
     - 'support/**/*'
     - 'tmp/**/*'
     - 'test/**/*'
+    - 'vendor/**/*'   # <— QUESTA È LA RIGA CHE RISOLVE IL PROBLEMA
 
 Style/ConditionalAssignment:
   Enabled: false
