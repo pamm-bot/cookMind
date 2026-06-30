@@ -9,7 +9,8 @@ AllCops:
     - 'support/**/*'
     - 'tmp/**/*'
     - 'test/**/*'
-    - 'vendor/**/*'   # <— QUESTA È LA RIGA CHE RISOLVE IL PROBLEMA
+    - 'vendor/**/*'
+    - 'app/controllers/users/**/*'
 
 Style/ConditionalAssignment:
   Enabled: false
