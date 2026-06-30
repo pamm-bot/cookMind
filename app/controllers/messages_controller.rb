@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
 
     prompt = <<~TEXT
       The user has the following ingredients available:
-      #{ingredients.join(", ")}
+      #{ingredients.join(', ')}
 
       Dietary preferences:
       #{dietary_preferences}

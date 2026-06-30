@@ -17,14 +17,12 @@ class ChatsController < ApplicationController
     )
     @chat.save
 
-    # If the user clicked "Find recipes with AI"
     if params[:use_ingredients]
       ingredients = Array(current_user.profil.ingredients)
       dietary_preferences = current_user.profil.dietary_preferences.presence || "No specific dietary preferences"
-
       prompt = <<~TEXT
         The user has the following ingredients available:
-        #{ingredients.join(", ")}
+        #{ingredients.join(', ')}
 
         Dietary preferences:
         #{dietary_preferences}
