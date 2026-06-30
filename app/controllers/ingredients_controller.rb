@@ -5,6 +5,10 @@ class IngredientsController < ApplicationController
     @ingredients = Array(@profil.ingredients)
   end
 
+  def new
+  @ingredient = Ingredient.new
+  end
+
   def create
     @profil.ingredients = Array(@profil.ingredients)
     @profil.ingredients << params[:ingredient][:ingredient]

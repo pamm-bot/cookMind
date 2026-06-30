@@ -27,7 +27,7 @@
           </li>
 
           <li class="nav-item">
-            <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+            <%= link_to "Profile", profil_path(current_user.profil), class: "nav-link" if current_user.profil.present? %>
           </li>
             <div class="dropdown-menu dropdown-menu-end">
               <%= link_to "Profile", profil_path(current_user.profil || current_user.create_profil(dietary_preferences: "")), class: "dropdown-item" %>

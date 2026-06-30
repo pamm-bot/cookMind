@@ -1,2 +1,24 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home-wrapper">
+
+  <h1 class="home-title">Welcome 👋</h1>
+  <p class="home-subtitle">What are we going to cook today?</p>
+
+  <%= link_to "+ Add a new ingredient", new_ingredient_path, class: "btn-add-ingredient" %>
+
+  <div class="ingredients-box">
+    <h3>Your ingredients</h3>
+
+    <% if @ingredients.present? %>
+      <ul>
+        <% @ingredients.each do |ingredient| %>
+          <li><%= ingredient.name.capitalize %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="empty">No ingredients yet.</p>
+    <% end %>
+  </div>
+
+  <%= link_to "Submit", recipes_path, class: "btn-submit" %>
+
+</div>
