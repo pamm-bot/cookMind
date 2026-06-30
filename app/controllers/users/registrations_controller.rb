@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def redirect_if_authenticated
     if user_signed_in?
-      redirect_to root_path, alert: "Sei già loggata!"
+      redirect_to root_path, alert: "You are already logged in!"
     end
   end
 end
