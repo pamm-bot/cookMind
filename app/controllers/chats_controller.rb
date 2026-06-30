@@ -1,4 +1,8 @@
 class ChatsController < ApplicationController
+  def index
+    @chats = current_user.chats
+  end
+
   def create
     @chat = Chat.new(title: "What do you want to eat today 🧑‍🍳 ?")
     # @chat.ingredients = current_user.ingredients --> il va falloir créer un model ingredients
