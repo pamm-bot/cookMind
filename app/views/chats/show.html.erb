@@ -1,28 +1,13 @@
 <h1 class="text-center mt-4" id="chat_title"><%= @chat.title %></h1>
 
 <div class="container mt-4">
-  <% @chat.messages.each do |message| %>
-    <% if message.role == "user" %>
-      <div class="d-flex justify-content-end mb-3">
-        <div class="p-3 rounded" style="background-color: #e8f5e9; max-width: 70%;">
-          <p><%= message.content %></p>
-        </div>
-      </div>
-    <% else %>
-      <div class="d-flex justify-content-start mb-3">
-        <div class="p-3 rounded" style="background-color: #f5f5f5; max-width: 70%;">
-          <%= sanitize(Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(message.content)) %>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+  <div id="messages"
+       data-controller="scroll"
+       style="height: 60vh; overflow-y: auto;">
+    <%= render "messages/messages", messages: @chat.messages %>
+  </div>
 
-<div id="new_message_container">
-  <div class="col-6 mx-auto text-center">
-    <%= simple_form_for [@chat, @message] do |f| %>
-      <%= f.input :content, label: "Ask for a recipe !", required: true %>
-      <%= f.button :submit, 'Ask cookMind AI', class: 'btn btn-primary' %>
-    <% end %>
+  <div id="new_message_container">
+    <%= render "messages/form", chat: @chat, message: @message %>
   </div>
 </div>
