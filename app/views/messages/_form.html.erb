@@ -5,8 +5,8 @@
     🍳 CookMind AI is typing...
   </p>
 
-  <%= f.input :content, label: "Ask for a recipe !", required: true,
-      input_html: { data: { controller: "submit", action: "keydown->submit#submit" } } %>
+<%= f.input :content, label: false, placeholder: "Ask for a recipe...", required: true,
+    input_html: { data: { controller: "submit", action: "keydown->submit#submit" } } %>
 
   <%# bouton d'envoi avec target Stimulus %>
   <%= f.button :submit, 'Ask cookMind AI', class: 'btn btn-primary',
