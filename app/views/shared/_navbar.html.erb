@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-cookmind">
   <div class="container-fluid">
 
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "cook-mind-logo.png", alt: "Cookmind logo" %>
+      CookMind 🍴
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -27,12 +27,11 @@
           </li>
 
           <li class="nav-item">
-            <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+            <%= link_to "Profile", profil_path(current_user.profil || current_user.create_profil(dietary_preferences: "")), class: "nav-link" %>
           </li>
-            <div class="dropdown-menu dropdown-menu-end">
-              <%= link_to "Profile", profil_path(current_user.profil || current_user.create_profil(dietary_preferences: "")), class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
-            </div>
+
+          <li class="nav-item">
+            <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
           </li>
 
         <% else %>

@@ -1,12 +1,54 @@
-.navbar-lewagon {
+.navbar-cookmind {
+  background-color: $purple;
   justify-content: space-between;
-  background: white;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-cookmind .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
+.navbar-cookmind .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+
+  &:hover {
+    color: $white;
+    border-bottom: 2px solid $yellow-cook;
+  }
+}
+
+.navbar-cookmind .navbar-brand {
+  color: $white;
+  font-size: 18px;
+  font-weight: 500;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.btn-cook-yellow {
+  background-color: $yellow-cook;
+  color: #1A1A1A;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: darken($yellow-cook, 10%);
+    color: #1A1A1A;
+  }
+}
+
+.step-number {
   width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $purple;
+  color: $white;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
