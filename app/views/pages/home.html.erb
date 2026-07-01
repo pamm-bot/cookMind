@@ -1,10 +1,37 @@
-<div class="home-wrapper">
+<%# Hero section %>
+<div class="text-center py-5">
+  <h1 class="display-4 fw-500 mb-3">Welcome 👋</h1>
+  <p class="lead text-muted mb-4">Tell us what's in your fridge — we'll suggest the perfect recipe!</p>
+  <%= link_to "+ Add a new ingredient", ingredients_path, class: "btn btn-cook-yellow btn-lg" %>
+</div>
 
-  <div class="home-content">
-    <h1 class="home-title">Welcome 👋</h1>
-    <p class="home-subtitle">What are we going to cook today?</p>
+<%# Étapes %>
+<div class="container py-4">
+  <div class="row justify-content-center g-4">
 
-    <%= link_to "+ Add a new ingredient", new_ingredient_path, class: "btn-add-ingredient" %>
+    <div class="col-md-3">
+      <div class="card text-center p-4 h-100">
+        <div class="step-number mx-auto mb-3">1</div>
+        <h5 class="fw-500">Add ingredients</h5>
+        <p class="text-muted small">Tell us what you have at home</p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center p-4 h-100">
+        <div class="step-number mx-auto mb-3">2</div>
+        <h5 class="fw-500">Ask the AI</h5>
+        <p class="text-muted small">Get personalized recipe suggestions</p>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center p-4 h-100">
+        <div class="step-number mx-auto mb-3">3</div>
+        <h5 class="fw-500">Cook & enjoy</h5>
+        <p class="text-muted small">Follow the steps and save your favorites</p>
+      </div>
+    </div>
+
   </div>
-
 </div>
