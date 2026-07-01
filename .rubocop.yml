@@ -9,6 +9,8 @@ AllCops:
     - 'support/**/*'
     - 'tmp/**/*'
     - 'test/**/*'
+    - 'vendor/**/*'
+    - 'app/controllers/users/**/*'
 
 Style/ConditionalAssignment:
   Enabled: false
