@@ -65,3 +65,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "rspec", "~> 3.13", group: :test
+
+group :development, :test do # rubocop:disable Bundler/DuplicatedGroup
+  gem "rspec-rails", "~> 8.0"
+end
