@@ -1,12 +1,12 @@
-<div class="container py-5">
+<<div class="container mt-4">
+
   <h1>Add a new ingredient</h1>
 
-  <%= form_with model: @ingredient, url: ingredients_path, method: :post do |f| %>
-    <div class="mb-3">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-
-    <%= f.submit "Add ingredient", class: "btn btn-primary" %>
+  <%= simple_form_for :ingredient, url: ingredients_path, method: :post do |f| %>
+    <%= f.input :ingredient, label: "Ingredient", placeholder: "Tomato, basil, pasta..." %>
+    <%= f.button :submit, "Add ingredient", class: "btn btn-primary" %>
   <% end %>
+
 </div>
+git add .
+git commit -m "Fix new ingredient page: remove Ingredient.new and adjust routes/view"
