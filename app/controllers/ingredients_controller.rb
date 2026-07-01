@@ -6,6 +6,7 @@ class IngredientsController < ApplicationController
   end
 
   def new
+    @ingredients = Array(@profil.ingredients)
   end
 
   def create
