@@ -41,13 +41,13 @@
     </div>
   <% end %>
 
-<% if @ingredients.present? %>
-  <div class="text-center mt-4">
-    <%= link_to "Find recipes with AI",
-      recipes_path(ingredients: @ingredients),
-      class: "btn",
-      style: "background:#006d77; color:white; border-radius:8px; padding:10px 16px; font-size:1rem;" %>
-  </div>
-<% end %>
-
+  <% if @ingredients.present? %>
+    <div class="text-center mt-4">
+      <%= button_to "Find recipes with AI",
+        chats_path,
+        method: :post,
+        class: "btn",
+        style: "background:#006d77; color:white; border-radius:8px; padding:10px 16px; font-size:1rem;" %>
+    </div>
+  <% end %>
 </div>
