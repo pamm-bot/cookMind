@@ -20,9 +20,19 @@
       </ul>
     </div>
 
-    <%# Colonne droite : chat IA %>
-    <div class="col-9">
-    </div>
+  <%# Colonne droite : chat IA %>
+  <div class="col-9">
+    <% @chat = current_user.chats.last %>
+    <% if @chat %>
+      <h6 class="fw-bold">Chat with AI</h6>
 
+      <div id="messages" data-controller="scroll" style="height: 60vh; overflow-y: auto;">
+        <%= render "messages/messages", messages: @chat.messages %>
+      </div>
+
+      <div id="new_message_container">
+        <%= render "messages/form", chat: @chat, message: Message.new %>
+      </div>
+    <% end %>
   </div>
 </div>
