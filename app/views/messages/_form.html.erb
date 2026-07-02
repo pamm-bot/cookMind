@@ -1,0 +1,15 @@
+<%= simple_form_for [@chat, message], html: { data: { controller: "typing", action: "submit->typing#submit" } } do |f| %>
+
+  <%# indicateur "L'IA est en train d'écrire..." caché par défaut %>
+  <p class="d-none text-muted" data-typing-target="indicator">
+    🍳 CookMind AI is typing...
+  </p>
+
+<%= f.input :content, label: false, placeholder: "Ask for a recipe...", required: true,
+    input_html: { data: { controller: "submit", action: "keydown->submit#submit" } } %>
+
+  <%# bouton d'envoi avec target Stimulus %>
+  <%= f.button :submit, 'Ask cookMind AI', class: 'btn btn-primary',
+      data: { typing_target: "button" } %>
+
+<% end %>
