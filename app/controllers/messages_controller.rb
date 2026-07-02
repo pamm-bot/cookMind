@@ -1,6 +1,15 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
 
+  SYSTEM_PROMPT = <<~PROMPT
+    You are a professional chef assistant called CookMind.
+    Suggest detailed recipes based on the ingredients and dietary preferences provided by the user.
+    Format your response in Markdown.
+    You have access to tools:
+    - Search for saved recipes in the user's collection when they ask about a specific recipe.
+    - Get the user's dietary preferences and available ingredients to personalize suggestions.
+  PROMPT
+
   def create
     @chat = current_user.chats.find(params[:chat_id])
 
@@ -8,11 +17,15 @@ class MessagesController < ApplicationController
     @message = Message.new(role: "user", content: params[:message][:content], chat: @chat)
 
     if @message.save
-      # Créer le chat IA avec l'historique
+      # Créer le chat IA avec l'historique et les outils
       @ruby_llm_chat = RubyLLM.chat(model: "gpt-4o-mini")
       build_conversation_history
-      # on crée le chat IA, on envoie l'historique et on pose la question
-      response = @ruby_llm_chat.with_instructions("You are a professional chef. Suggest detailed recipes based on the ingredients and dietary preferences provided by the user. Format your response in Markdown.").ask(@message.content)
+
+      # Connecter les outils à l'IA
+      @ruby_llm_chat.with_tool(SearchRecipesTool.new(user: current_user))
+      @ruby_llm_chat.with_tool(UserPreferencesTool.new(user: current_user))
+
+      response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
 
       # Sauvegarder la réponse de l'IA
       @assistant_message = Message.new(role: "assistant", content: response.content, chat: @chat)
@@ -44,6 +57,8 @@ class MessagesController < ApplicationController
 
   def build_conversation_history
     @chat.messages.each do |message|
+      next if message.content.blank?
+
       @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
   end
