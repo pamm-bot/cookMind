@@ -43,18 +43,11 @@
   <% if @ingredients.present? %>
     <div class="text-center mt-4">
       <%= link_to "Find recipes with AI",
-<<<<<<< HEAD
         chats_path(use_ingredients: true),
         data: { turbo_method: :post },
-=======
-        recipes_path(ingredients: @ingredients),
->>>>>>> 73d2f7314e05ecee5caabbcac30b8b68ec37a1f2
         class: "btn",
         style: "background:#006d77; color:white; border-radius:8px; padding:10px 16px; font-size:1rem;" %>
     </div>
   <% end %>
-<<<<<<< HEAD
 
-=======
->>>>>>> 73d2f7314e05ecee5caabbcac30b8b68ec37a1f2
 </div>
