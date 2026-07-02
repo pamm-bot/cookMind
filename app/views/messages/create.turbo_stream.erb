@@ -3,13 +3,7 @@
   <%= turbo_stream.update "chat_title", @chat.title %>
 <% end %>
 
-<%= turbo_stream.append "messages" do %>
-  <%# ajoute les nouveaux messages dans la div #messages sans recharger %>
-  <%= render "messages/message", message: @message %>
-  <%= render "messages/message", message: @assistant_message %>
-<% end %>
-
+<%# Remet le formulaire à vide après l'envoi %>
 <%= turbo_stream.update "new_message_container" do %>
-  <%# remet le formulaire à vide après l'envoi %>
   <%= render "messages/form", chat: @chat, message: Message.new %>
 <% end %>

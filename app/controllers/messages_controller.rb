@@ -13,28 +13,43 @@ class MessagesController < ApplicationController
   def create
     @chat = current_user.chats.find(params[:chat_id])
 
-    # Sauvegarder le message de l'utilisateur et vérifier la validation
+    # Sauvegarder le message de l'utilisateur
     @message = Message.new(role: "user", content: params[:message][:content], chat: @chat)
 
     if @message.save
-      # Créer le chat IA avec l'historique et les outils
+      # Créer un message vide pour l'IA
+      @assistant_message = @chat.messages.create(role: "assistant", content: "")
+
+      # Accumuler le contenu streamé
+      full_content = ""
+
+      # Appel à l'IA avec streaming
       @ruby_llm_chat = RubyLLM.chat(model: "gpt-4o-mini")
       build_conversation_history
-
-      # Connecter les outils à l'IA
       @ruby_llm_chat.with_tool(SearchRecipesTool.new(user: current_user))
       @ruby_llm_chat.with_tool(UserPreferencesTool.new(user: current_user))
+      @ruby_llm_chat.with_instructions(SYSTEM_PROMPT)
 
-      response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT).ask(@message.content)
+      @ruby_llm_chat.ask(@message.content) do |chunk|
+        next if chunk.content.blank?
 
-      # Sauvegarder la réponse de l'IA
-      @assistant_message = Message.new(role: "assistant", content: response.content, chat: @chat)
-      @assistant_message.save
+        # Accumuler les chunks
+        full_content += chunk.content
+        @assistant_message.content = full_content
 
-      # Générer un titre automatique à partir du premier message
+        # Broadcaster le message en cours de génération
+        broadcast_replace_message(@assistant_message, streaming: true)
+      end
+
+      # Sauvegarder le contenu final
+      @assistant_message.update(content: full_content)
+
+      # Broadcaster le message final avec Markdown rendu
+      broadcast_replace_message(@assistant_message, streaming: false)
+
+      # Générer un titre automatique
       @chat.generate_title_from_first_message
 
-      # si la requête vient de Turbo, on répond sans recharger, sinon on redirige
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to chat_path(@chat) }
@@ -42,13 +57,10 @@ class MessagesController < ApplicationController
     else
       respond_to do |format|
         format.turbo_stream do
-          # si le msg n'est pas valide, on met à jour juste le formulaire avec le msg d'erreur
           render turbo_stream: turbo_stream.update("new_message_container", partial: "messages/form",
                                                                             locals: { chat: @chat, message: @message })
         end
-        format.html do
-          render "chats/show", status: :unprocessable_entity
-        end
+        format.html { render "chats/show", status: :unprocessable_entity }
       end
     end
   end
@@ -61,5 +73,15 @@ class MessagesController < ApplicationController
 
       @ruby_llm_chat.add_message(role: message.role, content: message.content)
     end
+  end
+
+  def broadcast_replace_message(message, streaming: false)
+    # Remplace le message dans le DOM
+    Turbo::StreamsChannel.broadcast_replace_to(
+      @chat,
+      target: helpers.dom_id(message),
+      partial: "messages/message",
+      locals: { message: message, streaming: streaming }
+    )
   end
 end

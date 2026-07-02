@@ -1,7 +1,10 @@
+<%# Abonnement au canal ActionCable pour le streaming %>
+<% @chat = current_user.chats.last %>
+<%= turbo_stream_from @chat if @chat %>
+
 <div class="container-fluid mt-4">
 
   <%# Fenêtre du chat IA %>
-  <% @chat = current_user.chats.last %>
   <% if @chat %>
     <div class="mt-4">
       <div id="messages" data-controller="scroll" style="height: 60vh; overflow-y: auto;">

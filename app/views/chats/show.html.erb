@@ -1,3 +1,6 @@
+<%# Abonnement au canal ActionCable pour le streaming %>
+<%= turbo_stream_from @chat %>
+
 <h1 class="text-center mt-4" id="chat_title"><%= @chat.title %></h1>
 
 <div class="container mt-4">

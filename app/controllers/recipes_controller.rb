@@ -3,7 +3,12 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = current_user.recipes
-    @chat = current_user.chats.last || current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+    @chat = current_user.chats.last
+
+    # Crée un nouveau chat si la limite de messages est atteinte ou s'il n'y en a pas
+    if @chat.nil? || @chat.messages.where(role: "user").count >= Message::MAX_USER_MESSAGES
+      @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+    end
 
     return unless params[:ingredients].present?
 
