@@ -1,23 +1,17 @@
 <div class="container-fluid mt-4">
-  <div class="row">
 
-    <!-- Colonne gauche : liste des recettes -->
-    <div class="col-3 border-end">
-      <h6 class="fw-bold">Retrieve your favorites recipes</h6>
+  <%# Fenêtre du chat IA %>
+  <% @chat = current_user.chats.last %>
+  <% if @chat %>
+    <div class="mt-4">
+      <div id="messages" data-controller="scroll" style="height: 60vh; overflow-y: auto;">
+        <%= render "messages/messages", messages: @chat.messages %>
+      </div>
 
-      <ul class="list-unstyled mt-3">
-        <% @recipes.each do |recipe| %>
-          <li class="mb-2">
-            • <%= link_to recipe.title, recipe_path(recipe) %>
-            <%= button_to "Delete", recipe_path(recipe), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
-          </li>
-        <% end %>
-      </ul>
+      <div id="new_message_container">
+        <%= render "messages/form", chat: @chat, message: Message.new %>
+      </div>
     </div>
+  <% end %>
 
-    <!-- Colonne droite : réservée au chat IA -->
-    <div class="col-9">
-    </div>
-
-  </div>
 </div>

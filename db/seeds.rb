@@ -20,26 +20,6 @@ Profil.create!(
   dietary_preferences: "vegetarian, gluten-free"
 )
 
-# Crée des recettes sauvegardées
-puts "Creating recipes..."
-Recipe.create!(
-  title: "Shakshuka",
-  content: "A delicious North African egg dish poached in spicy tomato sauce.",
-  ingredients: "eggs, tomatoes, peppers, onions, garlic, cumin, paprika",
-  calories: "350",
-  meal_type: "breakfast",
-  user: user
-)
-
-Recipe.create!(
-  title: "Caprese Salad",
-  content: "A simple Italian salad with fresh mozzarella, tomatoes and basil.",
-  ingredients: "mozzarella, tomatoes, basil, olive oil, balsamic",
-  calories: "250",
-  meal_type: "lunch",
-  user: user
-)
-
 # Crée un chat de démo
 puts "Creating demo chat..."
 chat = Chat.create!(

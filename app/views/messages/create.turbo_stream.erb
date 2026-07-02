@@ -1,3 +1,8 @@
+<%# Met à jour le titre si il a changé %>
+<% if @chat.title_previously_changed? %>
+  <%= turbo_stream.update "chat_title", @chat.title %>
+<% end %>
+
 <%= turbo_stream.append "messages" do %>
   <%# ajoute les nouveaux messages dans la div #messages sans recharger %>
   <%= render "messages/message", message: @message %>
