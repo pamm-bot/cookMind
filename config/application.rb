@@ -1,10 +1,5 @@
 require_relative "boot"
-<<<<<<< HEAD
-
 require "ruby_llm"
-
-=======
->>>>>>> 73d2f7314e05ecee5caabbcac30b8b68ec37a1f2
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
