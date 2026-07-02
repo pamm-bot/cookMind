@@ -1,17 +1,10 @@
 <div class="container-fluid mt-4">
 
-  <%# Recette générée par l'IA %>
-  <% if @ai_response.present? %>
-    <div class="mt-4 p-4" style="background: #f5f5f5; border-radius: 12px;">
-      <%= sanitize(Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(@ai_response)) %>
-    </div>
-  <% end %>
-
   <%# Fenêtre du chat IA %>
   <% @chat = current_user.chats.last %>
   <% if @chat %>
     <div class="mt-4">
-      <div id="messages" data-controller="scroll" style="height: 50vh; overflow-y: auto;">
+      <div id="messages" data-controller="scroll" style="height: 60vh; overflow-y: auto;">
         <%= render "messages/messages", messages: @chat.messages %>
       </div>
 

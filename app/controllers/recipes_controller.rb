@@ -3,23 +3,17 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = current_user.recipes
+    @chat = current_user.chats.last || current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
 
-    if params[:ingredients].present?
-      @ingredients = params[:ingredients]
-      @chat = current_user.chats.last || current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+    return unless params[:ingredients].present?
 
-      ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
-      response = ai_chat.with_instructions("You are a professional chef. Suggest detailed recipes based on the ingredients provided. Format your response in Markdown.").ask("I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!")
+    @ingredients = params[:ingredients]
+    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
+    response = ai_chat.with_instructions("You are a professional chef. Suggest detailed recipes based on the ingredients provided. Format your response in Markdown.").ask("I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!")
 
-      # Sauvegarde les messages dans le chat
-      Message.create!(role: "user",
-                      content: "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!", chat: @chat)
-      Message.create!(role: "assistant", content: response.content, chat: @chat)
-
-      @ai_response = response.content
-    else
-      @chat = current_user.chats.last
-    end
+    Message.create!(role: "user",
+                    content: "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!", chat: @chat)
+    Message.create!(role: "assistant", content: response.content, chat: @chat)
   end
 
   def show
