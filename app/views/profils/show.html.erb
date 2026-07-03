@@ -2,43 +2,42 @@
   <div class="row justify-content-center">
     <div class="col-md-5">
 
-      <div class="card" style="border-radius: 16px; border: 0.5px solid #e3e7e5; overflow: hidden;">
+      <%# Avatar et infos %>
+      <div class="text-center mb-4">
+        <% if @profil.avatar.attached? %>
+          <%= image_tag @profil.avatar, class: "rounded-circle", style: "width: 88px; height: 88px; object-fit: cover; box-shadow: 0 0 0 5px #FBF9F4, 0 0 0 6px #EDEAE2;" %>
+        <% else %>
+          <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 88px; height: 88px; background-color: #FEF0B8; box-shadow: 0 0 0 5px #FBF9F4, 0 0 0 6px #EDEAE2; font-size: 36px;">
+            🧑‍🍳
+          </div>
+        <% end %>
 
-        <%# Bannière violette %>
-        <div style="background-color: #7C6FAB; height: 80px;"></div>
+        <h2 class="mt-3 mb-1" style="font-size: 20px; font-weight: 500; color: #4A4640;"><%= current_user.email.split("@").first.capitalize %></h2>
+        <p class="mb-0" style="font-size: 13px; color: #9C9488;"><%= current_user.email %></p>
+      </div>
 
-        <%# Photo de profil %>
-        <div class="text-center" style="margin-top: -45px;">
-          <% if @profil.avatar.attached? %>
-            <%= image_tag @profil.avatar, class: "rounded-circle", style: "width: 90px; height: 90px; object-fit: cover; border: 3px solid white;" %>
+      <%# Encart infos avec contour jaune %>
+      <div class="mb-4" style="background: #FFFFFF; border-radius: 16px; border: 1.5px solid #FEE9A8; overflow: hidden;">
+
+        <div class="d-flex align-items-center justify-content-between p-3" style="border-bottom: 1px solid #FEE9A8;">
+          <span style="font-size: 14px; color: #6B6459;">🥗 Dietary preferences</span>
+          <% if @profil.dietary_preferences.present? %>
+            <span style="font-size: 13px; color: #6B6459;"><%= @profil.dietary_preferences %></span>
           <% else %>
-            <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; background-color: #FACC15; border: 3px solid white; font-size: 2.5rem;">
-              🧑‍🍳
-            </div>
+            <span style="font-size: 13px; color: #B5AFA0; font-style: italic;">Not set</span>
           <% end %>
         </div>
 
-        <div class="p-4 text-center">
-
-          <%# Nom et email %>
-          <h5 class="fw-bold mb-1"><%= current_user.email.split("@").first.capitalize %></h5>
-          <p class="text-muted mb-3" style="font-size: 13px;"><%= current_user.email %></p>
-
-          <%# Préférences alimentaires %>
-          <div class="text-start mb-3 p-3" style="background: #f5f5f5; border-radius: 10px;">
-            <p class="text-muted mb-1" style="font-size: 12px;">🥗 Dietary preferences</p>
-            <% if @profil.dietary_preferences.present? %>
-              <p class="mb-0" style="font-size: 14px;"><%= @profil.dietary_preferences %></p>
-            <% else %>
-              <p class="mb-0 fst-italic text-muted" style="font-size: 14px;">No dietary preferences set yet.</p>
-            <% end %>
-          </div>
-
-          <%# Bouton éditer %>
-          <%= link_to "Edit my profile", edit_profil_path(@profil), class: "btn w-100 fw-500", style: "background-color: #FACC15; color: #1A1A1A; border-radius: 10px;" %>
-
+        <div class="d-flex align-items-center justify-content-between p-3">
+          <span style="font-size: 14px; color: #6B6459;">📖 Saved recipes</span>
+          <span style="font-size: 13px; color: #9C9488;"><%= current_user.recipes.count %></span>
         </div>
+
       </div>
+
+      <%# Bouton éditer %>
+      <%= link_to "Edit my profile", edit_profil_path(@profil), class: "btn w-100 fw-500", style: "background-color: #FEF0B8; color: #8A7A45; border-radius: 20px; padding: 12px;" %>
+
     </div>
   </div>
 </div>
