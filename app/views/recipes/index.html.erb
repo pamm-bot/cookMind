@@ -2,19 +2,43 @@
 <% @chat = current_user.chats.last %>
 <%= turbo_stream_from @chat if @chat %>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4 d-flex justify-content-center">
+  <div style="max-width: 680px; width: 100%;">
 
-  <%# Fenêtre du chat IA %>
-  <% if @chat %>
-    <div class="mt-4">
-      <div id="messages" data-controller="scroll" style="height: 60vh; overflow-y: auto;">
+    <div class="mb-3">
+      <%= link_to "← Back to ingredients", ingredients_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
+    </div>
+
+    <div class="text-center mb-4">
+      <div style="width: 48px; height: 48px; border-radius: 16px; background-color: #FEF0B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A7A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 13.87a4 4 0 0 1 -1 -7.79a4.4 4.4 0 0 1 0 -.63a4.5 4.5 0 0 1 8.9 -.8a3.5 3.5 0 0 1 4.87 3.22a3.5 3.5 0 0 1 -1.77 6.13" />
+          <path d="M6 14v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-6" />
+        </svg>
+      </div>
+      <h2 style="font-size: 20px; font-weight: 500; color: #4A4640;">
+        <%= @chat&.title.presence || "CookMind AI" %>
+      </h2>
+    </div>
+
+    <% if @chat && @chat.messages.any? %>
+      <div id="messages" data-controller="scroll">
         <%= render "messages/messages", messages: @chat.messages %>
       </div>
+    <% else %>
+      <div class="text-center" style="color: #9C9488; font-size: 14px; padding: 24px 0;">
+        Add some ingredients and ask for a recipe to get started!
+      </div>
+    <% end %>
 
+    <% if @chat %>
       <div id="new_message_container">
+        <p style="border-top: 1px solid #EDEAE2; padding-top: 20px; margin-top: 20px; text-align: center; font-size: 13px; color: #9C9488;">
+          Want another idea?
+        </p>
         <%= render "messages/form", chat: @chat, message: Message.new %>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
+  </div>
 </div>

@@ -20,6 +20,6 @@ class ProfilsController < ApplicationController
   private
 
   def profil_params
-    params.require(:profil).permit(:dietary_preferences)
+    params.require(:profil).permit(:dietary_preferences, :avatar)
   end
 end

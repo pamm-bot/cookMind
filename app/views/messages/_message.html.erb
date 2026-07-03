@@ -1,21 +1,21 @@
 <% streaming = local_assigns.fetch(:streaming, false) %>
 <% if message.role == "user" %>
   <div class="d-flex justify-content-end mb-3">
-    <div class="p-3 rounded" style="background-color: #e8f5e9; max-width: 70%;">
-      <p><%= message.content %></p>
+    <div class="p-3" style="background-color: #D6D3F0; color: #4F4880; width: fit-content; max-width: 75%; border-radius: 16px;">
+      <p class="mb-0"><%= message.content %></p>
     </div>
   </div>
 <% else %>
   <div class="d-flex justify-content-start mb-3" id="<%= dom_id(message) %>">
-    <div class="p-3 rounded" style="background-color: #f5f5f5; max-width: 70%;">
+    <div class="p-3" style="background-color: #FEF0B8; color: #4A4640; width: fit-content; max-width: 75%; border-radius: 16px;">
       <% if message.content.present? %>
         <% if streaming %>
-          <p style="white-space: pre-wrap;"><%= message.content %></p>
+          <p style="white-space: pre-wrap;" class="mb-0"><%= message.content %></p>
         <% else %>
           <%= sanitize(Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(message.content)) %>
         <% end %>
       <% else %>
-        🍳 CookMind AI is typing...
+        <p class="mb-0 text-muted">🍳 CookMind AI is typing...</p>
       <% end %>
     </div>
   </div>

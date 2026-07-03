@@ -1,16 +1,44 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-md-5">
 
-      <h5 class="fw-bold mb-4">My Profile</h5>
+      <div class="card" style="border-radius: 16px; border: 0.5px solid #e3e7e5; overflow: hidden;">
 
-      <div class="mb-3">
-        <strong>Dietary preferences:</strong>
-        <p><%= @profil.dietary_preferences %></p>
+        <%# Bannière violette %>
+        <div style="background-color: #7C6FAB; height: 80px;"></div>
+
+        <%# Photo de profil %>
+        <div class="text-center" style="margin-top: -45px;">
+          <% if @profil.avatar.attached? %>
+            <%= image_tag @profil.avatar, class: "rounded-circle", style: "width: 90px; height: 90px; object-fit: cover; border: 3px solid white;" %>
+          <% else %>
+            <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; background-color: #FACC15; border: 3px solid white; font-size: 2.5rem;">
+              🧑‍🍳
+            </div>
+          <% end %>
+        </div>
+
+        <div class="p-4 text-center">
+
+          <%# Nom et email %>
+          <h5 class="fw-bold mb-1"><%= current_user.email.split("@").first.capitalize %></h5>
+          <p class="text-muted mb-3" style="font-size: 13px;"><%= current_user.email %></p>
+
+          <%# Préférences alimentaires %>
+          <div class="text-start mb-3 p-3" style="background: #f5f5f5; border-radius: 10px;">
+            <p class="text-muted mb-1" style="font-size: 12px;">🥗 Dietary preferences</p>
+            <% if @profil.dietary_preferences.present? %>
+              <p class="mb-0" style="font-size: 14px;"><%= @profil.dietary_preferences %></p>
+            <% else %>
+              <p class="mb-0 fst-italic text-muted" style="font-size: 14px;">No dietary preferences set yet.</p>
+            <% end %>
+          </div>
+
+          <%# Bouton éditer %>
+          <%= link_to "Edit my profile", edit_profil_path(@profil), class: "btn w-100 fw-500", style: "background-color: #FACC15; color: #1A1A1A; border-radius: 10px;" %>
+
+        </div>
       </div>
-
-      <%= link_to "Edit my profile", edit_profil_path(@profil), class: "btn btn-success" %>
-
     </div>
   </div>
 </div>

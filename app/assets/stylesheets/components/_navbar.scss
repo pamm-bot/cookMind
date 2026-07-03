@@ -1,3 +1,15 @@
+body {
+  background-color: $body-bg;
+}
+
+h1, h5 {
+  color: $text-warm;
+}
+
+.text-muted {
+  color: $text-warm-muted !important;
+}
+
 .navbar-cookmind {
   background-color: $purple;
   justify-content: space-between;
@@ -7,23 +19,30 @@
   flex-grow: 0;
 }
 
+.navbar-cookmind .navbar-nav {
+  gap: 10px;
+}
+
 .navbar-cookmind .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+  background-color: $white;
+  color: #5C5691;
   font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: opacity 0.15s ease;
 
   &:hover {
-    color: $white;
-    border-bottom: 2px solid $yellow-cook;
+    opacity: 0.85;
   }
 }
 
 .navbar-cookmind .navbar-brand {
-  color: $white;
+  color: #5C5691;
   font-size: 18px;
   font-weight: 500;
 
   &:hover {
-    color: $white;
+    color: #5C5691;
   }
 }
 
@@ -44,17 +63,145 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: $purple;
-  color: $white;
+  background-color: $white;
+  color: #8B84C4;
   font-size: 16px;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.card {
+  border: none;
+  border-radius: 16px;
+}
+
+.card-lavender {
+  background-color: $purple;
+
+  .step-number {
+    background-color: $white;
+    color: #8B84C4;
+  }
+}
+
+.card-yellow {
+  background-color: $yellow-cook-light;
+
+  .step-number {
+    background-color: $white;
+    color: #C9A94A;
+  }
+}
+
+.ingredients-page {
+  max-width: 640px;
+}
+
+.ingredients-icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background-color: $yellow-cook;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.ingredient-input-bar {
+  background-color: $white;
+  border-radius: 20px;
+  padding: 8px;
+  box-shadow: 0 0 0 0.5px #EDEAE2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+}
+
+.ingredient-input {
+  border: none;
+  padding: 12px 14px;
+  font-size: 14px;
+  background: transparent;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-cook-yellow-pill {
+  background-color: $yellow-cook;
+  color: #8A7A45;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.85;
+    color: #8A7A45;
+  }
+}
+
+.ingredients-card {
+  background-color: $yellow-cook-light;
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.ingredients-label {
+  font-size: 12px;
+  color: #C9A94A;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.ingredient-text {
+  font-size: 15px;
+  color: $text-warm;
+}
+
+.ingredient-delete {
+  color: #C9A94A;
+  font-size: 18px;
+  text-decoration: none;
+
+  &:hover {
+    color: darken(#C9A94A, 15%);
+  }
+}
+
+.btn-cook-purple-solid {
+  background-color: #6B63A8;
+  color: $white;
+  border: none;
+  border-radius: 20px;
+  padding: 14px 36px;
+  font-size: 15px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: darken(#6B63A8, 8%);
+    color: $white;
+  }
+}
+
 abbr[title] {
   display: none;
 }
+
 // Limite la taille des titres dans les messages du chat
 #messages {
   h1, h2, h3, h4, h5, h6 {
@@ -62,5 +209,6 @@ abbr[title] {
     font-weight: 600;
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
+    color: #8A7A45;
   }
 }
