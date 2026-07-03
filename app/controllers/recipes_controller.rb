@@ -1,35 +1,36 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
 
-  def index # rubocop:disable Metrics/MethodLength
+  def index
     @recipes = current_user.recipes
-    @chat = current_user.chats.last || current_user.chats.create!(
-      title: "What do you want to eat today 🧑‍🍳 ?"
-    )
-    return unless params[:ingredients].present?
 
-    @ingredients = params[:ingredients]
+    if params[:ingredients].present?
+      @ingredients = params[:ingredients]
+      @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
 
-    instructions =
-      "You are a professional chef. " \
-      "Suggest detailed recipes based on the ingredients provided. " \
-      "Format your response in Markdown."
-    question = "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!"
+      ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
+      response = ai_chat
+        .with_instructions("You are a professional chef. Suggest detailed recipes based on the ingredients provided. Format your response in Markdown.")
+        .ask("I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!")
 
-    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
-    response = ai_chat.with_instructions(instructions).ask(question)
+      Message.create!(
+        role: "user",
+        content: "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!",
+        chat: @chat
+      )
 
-    Message.create!(
-      role: "user",
-      content: question,
-      chat: @chat
-    )
+      Message.create!(
+        role: "assistant",
+        content: response.content,
+        chat: @chat
+      )
+    else
+      @chat = current_user.chats.last
 
-    Message.create!(
-      role: "assistant",
-      content: response.content,
-      chat: @chat
-    )
+      if @chat.nil? || @chat.messages.where(role: "user").count >= Message::MAX_USER_MESSAGES
+        @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+      end
+    end
   end
 
   def show
@@ -39,6 +40,7 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user = current_user
+
     if @recipe.save
       redirect_to recipes_path, notice: "Recipe saved!"
     else
