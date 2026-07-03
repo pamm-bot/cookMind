@@ -212,3 +212,27 @@ abbr[title] {
     color: #8A7A45;
   }
 }
+.chat-history-item {
+  display: flex;
+  background-color: $white;
+  border-radius: 14px;
+  padding: 14px 20px;
+  text-decoration: none;
+  box-shadow: 0 0 0 0.5px #EDEAE2;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.chat-history-title {
+  font-size: 14px;
+  color: $text-warm;
+  font-weight: 500;
+}
+
+.chat-history-date {
+  font-size: 12px;
+  color: $text-warm-muted;
+}

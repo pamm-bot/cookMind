@@ -5,10 +5,11 @@
 <div class="container-fluid mt-4 d-flex justify-content-center">
   <div style="max-width: 680px; width: 100%;">
 
-    <div class="mb-3">
-      <%= link_to "← Back to ingredients", ingredients_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
-    </div>
+<div class="mb-3 d-flex justify-content-between">
+  <%= link_to "← Back to ingredients", ingredients_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
+  <%= link_to "View past conversations", chats_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
 
+</div>
     <div class="text-center mb-4">
       <div style="width: 48px; height: 48px; border-radius: 16px; background-color: #FEF0B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A7A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
