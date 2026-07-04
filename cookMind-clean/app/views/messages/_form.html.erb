@@ -1,0 +1,19 @@
+<%= simple_form_for [@chat, message], html: { style: "display: flex; gap: 8px; max-width: 440px; margin: 0 auto;", data: { controller: "typing", action: "submit->typing#submit" } } do |f| %>
+
+  <%# indicateur "L'IA est en train d'écrire..." caché par défaut %>
+  <p class="d-none text-muted" data-typing-target="indicator">
+    🍳 CookMind AI is typing...
+  </p>
+
+  <%= f.input :content, label: false, placeholder: "Ask for a recipe...", required: true,
+      input_html: {
+        style: "border-radius:20px; border:1px solid #EDEAE2; padding:10px 16px; font-size:14px;",
+        data: { controller: "submit", action: "keydown->submit#submit" }
+      },
+      wrapper_html: { style: "flex-grow: 1; margin-bottom: 0;" } %>
+
+  <%= f.button :submit, 'Ask',
+      style: "background:#6B63A8; color:white; border:none; border-radius:20px; padding:10px 20px; font-size:14px; font-weight:500; white-space:nowrap;",
+      data: { typing_target: "button" } %>
+
+<% end %>

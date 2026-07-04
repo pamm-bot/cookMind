@@ -1,28 +1,35 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
+  def index # rubocop:disable Metrics/MethodLength
     @recipes = current_user.recipes
+    @chat = current_user.chats.last || current_user.chats.create!(
+      title: "What do you want to eat today 🧑‍🍳 ?"
+    )
+    return unless params[:ingredients].present?
 
-    if params[:ingredients].present?
-      # Nouvelle recherche d'ingrédients -> on crée toujours une nouvelle conversation
-      @ingredients = params[:ingredients]
-      @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+    @ingredients = params[:ingredients]
 
-      ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
-      response = ai_chat.with_instructions("You are a professional chef. Suggest detailed recipes based on the ingredients provided. Format your response in Markdown.").ask("I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!")
+    instructions =
+      "You are a professional chef. " \
+      "Suggest detailed recipes based on the ingredients provided. " \
+      "Format your response in Markdown."
+    question = "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!"
 
-      Message.create!(role: "user",
-                      content: "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!", chat: @chat)
-      Message.create!(role: "assistant", content: response.content, chat: @chat)
-    else
-      # Pas de nouveaux ingrédients -> on continue la dernière conversation existante
-      @chat = current_user.chats.last
+    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
+    response = ai_chat.with_instructions(instructions).ask(question)
 
-      if @chat.nil? || @chat.messages.where(role: "user").count >= Message::MAX_USER_MESSAGES
-        @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
-      end
-    end
+    Message.create!(
+      role: "user",
+      content: question,
+      chat: @chat
+    )
+
+    Message.create!(
+      role: "assistant",
+      content: response.content,
+      chat: @chat
+    )
   end
 
   def show

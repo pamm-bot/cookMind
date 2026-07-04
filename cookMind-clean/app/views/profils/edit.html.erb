@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+
+      <%# Titre %>
+      <h2 class="text-center mb-4" style="font-size: 20px; font-weight: 500; color: #4A4640;">Edit my profile</h2>
+
+      <%= form_with model: @profil, url: profil_path(@profil), method: :patch, html: { multipart: true } do |f| %>
+
+        <%# Photo de profil %>
+        <div class="text-center mb-4">
+          <% if @profil.avatar.attached? %>
+            <%= image_tag @profil.avatar, class: "rounded-circle mb-2", style: "width: 88px; height: 88px; object-fit: cover; box-shadow: 0 0 0 5px #FBF9F4, 0 0 0 6px #EDEAE2;" %>
+          <% else %>
+            <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width: 88px; height: 88px; background-color: #FEF0B8; box-shadow: 0 0 0 5px #FBF9F4, 0 0 0 6px #EDEAE2; font-size: 36px;">
+              🧑‍🍳
+            </div>
+          <% end %>
+          <%= f.label :avatar, "Change photo", class: "d-block mb-2", style: "font-size: 12px; color: #9C9488;" %>
+          <%= f.file_field :avatar, class: "form-control form-control-sm mx-auto", style: "max-width: 320px; border-radius: 10px; border: 1px solid #EDEAE2;" %>
+        </div>
+
+        <%# Préférences alimentaires %>
+        <div class="mb-4" style="background: #FFFFFF; border-radius: 16px; border: 1.5px solid #FEE9A8; padding: 16px 20px;">
+          <%= f.label :dietary_preferences, "🥗 Dietary preferences", class: "d-block mb-2", style: "font-size: 13px; font-weight: 500; color: #6B6459;" %>
+          <%= f.text_field :dietary_preferences, class: "form-control", placeholder: "Ex: vegetarian, gluten-free, halal...", style: "border-radius: 10px; border: 1px solid #EDEAE2; font-size: 14px;" %>
+        </div>
+
+        <%# Boutons %>
+        <%= f.submit "Save", class: "btn w-100 fw-500 mb-2", style: "background-color: #FEF0B8; color: #8A7A45; border-radius: 20px; padding: 12px;" %>
+        <%= link_to "Cancel", profil_path(@profil), class: "btn w-100", style: "border: 1px solid #D6D3F0; color: #5C5691; border-radius: 20px; padding: 12px;" %>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

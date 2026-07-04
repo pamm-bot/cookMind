@@ -5,11 +5,21 @@ class IngredientsController < ApplicationController
     @ingredients = Array(@profil.ingredients)
   end
 
+  def new
+    @ingredients = Array(@profil.ingredients)
+  end
+
   def create
     @profil.ingredients = Array(@profil.ingredients)
-    @profil.ingredients << params[:ingredient][:ingredient]
-    @profil.save
-    redirect_to ingredients_path
+    new_ingredient = params.dig(:ingredient, :ingredient).to_s.strip
+    return redirect_to ingredients_path, alert: "Please enter an ingredient." unless new_ingredient.present?
+
+    @profil.ingredients << new_ingredient
+    if @profil.save
+      redirect_to ingredients_path, notice: "Ingredient added."
+    else
+      redirect_to ingredients_path, alert: "Unable to save ingredient."
+    end
   end
 
   def destroy
