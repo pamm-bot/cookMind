@@ -1,9 +1,0 @@
-<%# Met à jour le titre si il a changé %>
-<% if @chat.title_previously_changed? %>
-  <%= turbo_stream.update "chat_title", @chat.title %>
-<% end %>
-
-<%# Remet le formulaire à vide après l'envoi %>
-<%= turbo_stream.update "new_message_container" do %>
-  <%= render "messages/form", chat: @chat, message: Message.new %>
-<% end %>
