@@ -1,3 +1,4 @@
+cat > app/assets/stylesheets/components/_navbar.scss << 'EOF'
 body {
   background-color: $body-bg;
 }
@@ -212,6 +213,7 @@ abbr[title] {
     color: #8A7A45;
   }
 }
+
 .chat-history-item {
   display: flex;
   background-color: $white;
@@ -236,3 +238,71 @@ abbr[title] {
   font-size: 12px;
   color: $text-warm-muted;
 }
+
+.auth-card {
+  background: $white;
+  border-radius: 20px;
+  border: 1.5px solid #FEE9A8;
+  padding: 32px;
+}
+
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $white;
+  border-top: 1px solid #EDEAE2;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 200;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  color: #9C9488;
+  text-decoration: none;
+
+  i {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  &.active {
+    color: #5C5691;
+  }
+}
+
+@media (max-width: 767px) {
+  #new_message_container {
+    bottom: 56px !important;
+  }
+}
+
+.popular-ingredients-label {
+  font-size: 12px;
+  color: #9C9488;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.popular-ingredient-tag {
+  background-color: #F2EEFA;
+  color: #6B63A8;
+  border: none;
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #D6D3F0;
+    color: #4F4880;
+  }
+}
+EOF
