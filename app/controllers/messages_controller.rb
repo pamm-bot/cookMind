@@ -49,11 +49,13 @@ class MessagesController < ApplicationController
       Dietary preferences:
       #{dietary}
 
-      The user's question or request is:
+      The user's message is:
       #{question}
 
-      Please answer the user's question directly. If they ask for a recipe, suggest one using ONLY the ingredients listed above and respect their dietary preferences. If they ask something else (like cooking time, substitutions, etc.), answer that specific question instead.
-      Format your response in Markdown.
+      Respond naturally and appropriately to what the user actually said:
+      - If they ask for a recipe or recipe suggestion, suggest one using ONLY the ingredients listed above, respecting their dietary preferences, formatted in Markdown.
+      - If they ask a specific question (cooking time, substitutions, etc.), answer that question directly and briefly.
+      - If they are just thanking you, greeting you, or making small talk (e.g. "thank you", "ok", "great"), respond with a short, warm, conversational reply. Do NOT suggest a new recipe unless they explicitly ask for one.
     TEXT
   end
 
