@@ -55,3 +55,12 @@
 abbr[title] {
   display: none;
 }
+// Limite la taille des titres dans les messages du chat
+#messages {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+}
