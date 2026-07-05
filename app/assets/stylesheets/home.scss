@@ -1,12 +1,87 @@
-.home-content {
-  padding-bottom: 8px;
+.home-wrapper {
+  background-color: #F8F9FA;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #4A4640;
+  margin-bottom: 0.5rem;
 }
 
 .home-subtitle {
-  margin-bottom: 4px;
+  color: #6B6459;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-home-action {
+  background-color: #FEF0B8;
+  color: #1A202C;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.btn-home-action:hover {
+  background-color: #FDE48D;
+  color: #1A202C;
+  text-decoration: none;
 }
 
 .steps-row {
-  margin-top: 6px !important;
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.step-card {
+  flex: 1 1 30%;
+  min-width: 250px;
+}
+
+.card-lavender {
+  background-color: #DCE0F6 !important;
+  border: none !important;
+  border-radius: 16px !important;
+}
+
+.card-yellow {
+  background-color: #FFF8DC !important;
+  border: none !important;
+  border-radius: 16px !important;
+}
+
+.step-number {
+  background-color: #FFFFFF;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-lavender .step-number {
+  color: #5C5691;
+}
+
+.card-yellow .step-number {
+  color: #8A7A45;
+}
+
+.step-card h5 {
+  color: #4A4640;
+}
+
+.step-card p.text-muted {
+  color: #6B6459 !important;
 }
