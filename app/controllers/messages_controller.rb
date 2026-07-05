@@ -52,10 +52,16 @@ class MessagesController < ApplicationController
       The user's message is:
       #{question}
 
+      #{response_instructions}
+    TEXT
+  end
+
+  def response_instructions
+    <<~TEXT
       Respond naturally and appropriately to what the user actually said:
       - If they ask for a recipe or recipe suggestion, suggest one using ONLY the ingredients listed above, respecting their dietary preferences, formatted in Markdown.
       - If they ask a specific question (cooking time, substitutions, etc.), answer that question directly and briefly.
-      - If they are just thanking you, greeting you, or making small talk (e.g. "thank you", "ok", "great"), respond with a short, warm, conversational reply. Do NOT suggest a new recipe unless they explicitly ask for one.
+      - If they are just thanking you, greeting you, or making small talk, respond with a short, warm, conversational reply. Do NOT suggest a new recipe unless they explicitly ask for one.
     TEXT
   end
 
