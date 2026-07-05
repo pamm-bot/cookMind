@@ -10,6 +10,10 @@ export default class extends Controller {
     this.indicatorTarget.classList.remove("d-none")
     // on désactive le bouton pour éviter les double envois
     this.buttonTarget.disabled = true
+
+    // on vide le champ juste après que le formulaire ait été envoyé
+    const form = this.element
+    setTimeout(() => form.reset(), 0)
   }
 
   reset() {
