@@ -1,136 +1,87 @@
 .home-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 240px);
-  text-align: center;
-  padding-top: 12px;
-}
-
-.home-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
+  background-color: #F8F9FA;
 }
 
 .home-title {
-  font-size: 42px;
-  font-weight: 700;
-  color: #333;
-  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #4A4640;
+  margin-bottom: 0.5rem;
 }
 
 .home-subtitle {
-  font-size: 20px;
-  color: #666;
-  margin: 0;
+  color: #6B6459;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
 .btn-home-action {
-  background-color: #f7c948;
-  padding: 12px 22px;
-  border-radius: 8px;
-  font-weight: 600;
-  color: #333;
+  background-color: #FEF0B8;
+  color: #1A202C;
+  font-weight: 500;
   text-decoration: none;
-  transition: 0.2s ease;
-  border: 1px solid #e6b93a;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
 }
 
 .btn-home-action:hover {
-  background-color: #f4b731;
+  background-color: #FDE48D;
+  color: #1A202C;
+  text-decoration: none;
 }
 
 .steps-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
-  align-items: stretch;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  margin-top: -100px;
-  padding-bottom: 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .step-card {
-  flex: 0 0 260px;
-  max-width: 260px;
+  flex: 1 1 30%;
+  min-width: 250px;
 }
 
 .card-lavender {
-  background: #f6f3fb;
-  border-radius: 12px;
-  border: none;
+  background-color: #DCE0F6 !important;
+  border: none !important;
+  border-radius: 16px !important;
 }
 
 .card-yellow {
-  background: #fff7d6;
-  border-radius: 12px;
-  border: none;
+  background-color: #FFF8DC !important;
+  border: none !important;
+  border-radius: 16px !important;
 }
 
 .step-number {
-  width: 44px;
-  height: 44px;
+  background-color: #FFFFFF;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  color: #6B6459;
   margin: 0 auto;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
-.input-preferences {
-  width: 100%;
-  max-width: 220px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #e6d9a8;
-  font-size: 13px;
-  color: #4a4640;
+.card-lavender .step-number {
+  color: #5C5691;
 }
 
-.btn-home-action.btn-sm {
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 8px;
+.card-yellow .step-number {
+  color: #8A7A45;
 }
 
-@media (max-width: 992px) {
-  .step-card {
-    flex: 0 0 220px;
-    max-width: 220px;
-  }
-  .home-title {
-    font-size: 36px;
-  }
-  .home-subtitle {
-    font-size: 18px;
-  }
-  .steps-row {
-    margin-top: -80px;
-  }
+.step-card h5 {
+  color: #4A4640;
 }
 
-@media (max-width: 576px) {
-  .steps-row {
-    gap: 1rem;
-    padding-bottom: 0;
-    margin-top: -40px;
-  }
-  .step-card {
-    flex: 0 0 200px;
-    max-width: 200px;
-  }
-  .home-title {
-    font-size: 28px;
-  }
-  .home-subtitle {
-    font-size: 16px;
-  }
+.step-card p.text-muted {
+  color: #6B6459 !important;
 }
