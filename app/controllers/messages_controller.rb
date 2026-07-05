@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       chat: @chat
     )
 
-    redirect_to chat_path(@chat)
+    head :no_content
   end
 
   private
@@ -33,19 +33,22 @@ class MessagesController < ApplicationController
   def build_prompt
     ingredients = Array(current_user.profil.ingredients)
     dietary = current_user.profil.dietary_preferences.presence || "No specific dietary preferences"
+    question = params[:message][:content]
 
-    <<~TEXT
-      The user has the following ingredients available:
-      #{ingredients.join(', ')}
+   <<~TEXT
+    The user has the following ingredients available:
+    #{ingredients.join(', ')}
 
-      Dietary preferences:
-      #{dietary}
+    Dietary preferences:
+    #{dietary}
 
-      Please suggest a detailed recipe using ONLY the ingredients listed above.
-      Make sure the recipe respects the user's dietary preferences.
-      Format your response in Markdown.
-    TEXT
-  end
+    The user's question or request is:
+    #{question}
+
+    Please answer the user's question directly. If they ask for a recipe, suggest one using ONLY the ingredients listed above and respect their dietary preferences. If they ask something else (like cooking time, substitutions, etc.), answer that specific question instead.
+    Format your response in Markdown.
+  TEXT
+end
 
   def ask_ai(prompt)
     ai_chat = RubyLLM.chat(model: "gpt-4o-mini")

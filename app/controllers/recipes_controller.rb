@@ -1,35 +1,27 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
 
-  def index # rubocop:disable Metrics/MethodLength
+  def index
     @recipes = current_user.recipes
-    @chat = current_user.chats.last || current_user.chats.create!(
-      title: "What do you want to eat today 🧑‍🍳 ?"
-    )
-    return unless params[:ingredients].present?
 
-    @ingredients = params[:ingredients]
+    if params[:ingredients].present?
+      @ingredients = params[:ingredients]
+      @chat = current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
 
-    instructions =
-      "You are a professional chef. " \
-      "Suggest detailed recipes based on the ingredients provided. " \
-      "Format your response in Markdown."
-    question = "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!"
+      instructions =
+        "You are a professional chef. " \
+        "Suggest detailed recipes based on the ingredients provided. " \
+        "Format your response in Markdown."
+      question = "I have these ingredients: #{@ingredients.join(', ')}. Suggest me a recipe!"
 
-    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
-    response = ai_chat.with_instructions(instructions).ask(question)
+      ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
+      response = ai_chat.with_instructions(instructions).ask(question)
 
-    Message.create!(
-      role: "user",
-      content: question,
-      chat: @chat
-    )
-
-    Message.create!(
-      role: "assistant",
-      content: response.content,
-      chat: @chat
-    )
+      Message.create!(role: "user", content: question, chat: @chat)
+      Message.create!(role: "assistant", content: response.content, chat: @chat)
+    else
+      @chat = current_user.chats.last || current_user.chats.create!(title: "What do you want to eat today 🧑‍🍳 ?")
+    end
   end
 
   def show
