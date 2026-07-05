@@ -236,3 +236,10 @@ abbr[title] {
   font-size: 12px;
   color: $text-warm-muted;
 }
+
+.auth-card {
+  background: $white;
+  border-radius: 20px;
+  border: 1.5px solid #FEE9A8;
+  padding: 32px;
+}
