@@ -1,15 +1,14 @@
 class ProfilsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_profil, only: %i[show edit update]
+
   def show
-    @profil = current_user.profil || current_user.create_profil(dietary_preferences: "")
   end
 
   def edit
-    @profil = current_user.profil || current_user.create_profil(dietary_preferences: "")
   end
 
   def update
-    @profil = current_user.profil
     if @profil.update(profil_params)
       redirect_to profil_path(@profil), notice: "Profile updated!"
     else
@@ -19,7 +18,11 @@ class ProfilsController < ApplicationController
 
   private
 
+  def set_profil
+    @profil = current_user.profil || current_user.build_profil(dietary_preferences: "")
+  end
+
   def profil_params
-    params.require(:profil).permit(:dietary_preferences)
+    params.require(:profil).permit(:dietary_preferences, :avatar)
   end
 end
