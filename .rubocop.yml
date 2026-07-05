@@ -6,6 +6,8 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   SuggestExtensions: false
+  Exclude:
+    - 'db/**/*'
 
 Metrics/MethodLength:
   Enabled: true

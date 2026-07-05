@@ -7,13 +7,22 @@ class SearchRecipesTool < RubyLLM::Tool
   end
 
   def execute(query:)
-    recipes = @user.recipes.where(
+    recipes = search_recipes(query)
+    return "No saved recipes found for '#{query}'" if recipes.empty?
+
+    format_recipes(recipes)
+  end
+
+  private
+
+  def search_recipes(query)
+    @user.recipes.where(
       "title ILIKE :q OR ingredients ILIKE :q",
       q: "%#{query}%"
     )
+  end
 
-    return "No saved recipes found for '#{query}'" if recipes.empty?
-
+  def format_recipes(recipes)
     recipes.map do |recipe|
       {
         id: recipe.id,
