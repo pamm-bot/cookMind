@@ -6,18 +6,7 @@ class MessagesController < ApplicationController
     save_user_message
     assistant_message = Message.create!(role: "assistant", content: "", chat: @chat)
 
-    prompt = build_prompt(params[:message][:content])
-    full_response = +""
-
-    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
-    ai_chat.with_instructions("You are a professional chef. Provide clear, structured recipes in Markdown.").ask(prompt) do |chunk|
-      full_response << chunk.content.to_s
-      assistant_message.update_column(:content, full_response)
-      broadcast_message(assistant_message, streaming: true)
-      sleep 0.03
-    end
-
-    broadcast_message(assistant_message, streaming: false)
+    stream_ai_response(assistant_message, params[:message][:content])
 
     redirect_to chat_path(@chat)
   end
@@ -34,6 +23,21 @@ class MessagesController < ApplicationController
       content: params[:message][:content],
       chat: @chat
     )
+  end
+
+  def stream_ai_response(assistant_message, question)
+    prompt = build_prompt(question)
+    full_response = +""
+
+    ai_chat = RubyLLM.chat(model: "gpt-4o-mini")
+    ai_chat.with_instructions("You are a professional chef. Provide clear, structured recipes in Markdown.").ask(prompt) do |chunk|
+      full_response << chunk.content.to_s
+      assistant_message.update_column(:content, full_response)
+      broadcast_message(assistant_message, streaming: true)
+      sleep 0.03
+    end
+
+    broadcast_message(assistant_message, streaming: false)
   end
 
   def build_prompt(question)
