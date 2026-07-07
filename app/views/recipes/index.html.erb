@@ -2,14 +2,14 @@
 <% @chat = current_user.chats.last %>
 <%= turbo_stream_from @chat if @chat %>
 
-<div class="container-fluid mt-4 d-flex justify-content-center">
+<div class="container-fluid mt-4 d-flex justify-content-center" style="padding-bottom: 100px;">
   <div style="max-width: 680px; width: 100%;">
 
-<div class="mb-3 d-flex justify-content-between">
-  <%= link_to "← Back to ingredients", ingredients_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
-  <%= link_to "View past conversations", chats_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
+    <div class="mb-3 d-flex justify-content-between">
+      <%= link_to "← Back to ingredients", ingredients_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
+      <%= link_to "View past conversations", chats_path, style: "font-size: 13px; color: #9C9488; text-decoration: none;" %>
+    </div>
 
-</div>
     <div class="text-center mb-4">
       <div style="width: 48px; height: 48px; border-radius: 16px; background-color: #FEF0B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A7A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -32,14 +32,13 @@
       </div>
     <% end %>
 
-    <% if @chat %>
-      <div id="new_message_container">
-        <p style="border-top: 1px solid #EDEAE2; padding-top: 20px; margin-top: 20px; text-align: center; font-size: 13px; color: #9C9488;">
-          Want another idea?
-        </p>
-        <%= render "messages/form", chat: @chat, message: Message.new %>
-      </div>
-    <% end %>
-
   </div>
 </div>
+
+<% if @chat %>
+  <div id="new_message_container" style="position: fixed; bottom: 0; left: 0; right: 0; background: #FBF9F4; border-top: 1px solid #EDEAE2; padding: 16px 0; z-index: 100;">
+    <div style="max-width: 680px; margin: 0 auto; padding: 0 16px;">
+      <%= render "messages/form", chat: @chat, message: Message.new %>
+    </div>
+  </div>
+<% end %>
