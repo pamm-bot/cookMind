@@ -1,3 +1,4 @@
+cat > app/assets/stylesheets/components/_navbar.scss << 'EOF'
 body {
   background-color: $body-bg;
 }
@@ -202,7 +203,6 @@ abbr[title] {
   display: none;
 }
 
-// Limite la taille des titres dans les messages du chat
 #messages {
   h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
@@ -279,5 +279,27 @@ abbr[title] {
 @media (max-width: 767px) {
   #new_message_container {
     bottom: 56px !important;
+  }
+}
+
+.popular-ingredients-label {
+  font-size: 12px;
+  color: #9C9488;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.popular-ingredient-tag {
+  background-color: #F2EEFA;
+  color: #6B63A8;
+  border: none;
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #D6D3F0;
+    color: #4F4880;
   }
 }
