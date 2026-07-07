@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
   def create
     save_user_message
-    prompt = build_prompt
+    prompt = build_prompt(params[:message][:content])
     response = ask_ai(prompt)
 
     Message.create(
@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
     )
   end
 
-  def build_prompt
+  def build_prompt(question)
     ingredients = Array(current_user.profil.ingredients)
     dietary = current_user.profil.dietary_preferences.presence || "No specific dietary preferences"
 
@@ -41,9 +41,19 @@ class MessagesController < ApplicationController
       Dietary preferences:
       #{dietary}
 
-      Please suggest a detailed recipe using ONLY the ingredients listed above.
-      Make sure the recipe respects the user's dietary preferences.
-      Format your response in Markdown.
+      The user's message is:
+      #{question}
+
+      #{response_instructions}
+    TEXT
+  end
+
+  def response_instructions
+    <<~TEXT
+      Respond naturally and appropriately to what the user actually said:
+      - If they ask for a recipe or recipe suggestion, suggest one using ONLY the ingredients listed above, respecting their dietary preferences, formatted in Markdown.
+      - If they ask a specific question (cooking time, substitutions, etc.), answer that question directly and briefly.
+      - If they are just thanking you, greeting you, or making small talk (e.g. "thank you", "ok", "great"), respond with a short, warm, conversational reply. Do NOT suggest a new recipe unless they explicitly ask for one.
     TEXT
   end
 
