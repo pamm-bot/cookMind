@@ -1,25 +1,51 @@
-<h2>Sign up</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+      <div class="auth-card">
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+        <div class="text-center mb-3">
+          <div style="width: 48px; height: 48px; border-radius: 16px; background: #FEF0B8; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
+            🍴
+          </div>
+          <p style="font-size: 18px; font-weight: 500; color: #4A4640; margin: 0 0 2px;">Join CookMind</p>
+          <p style="font-size: 12px; color: #9C9488; margin: 0;">Create an account to start cooking</p>
+        </div>
+
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email", style: "border-radius: 10px; border: 1px solid #EDEAE2; padding: 8px 12px;" },
+                        label_html: { style: "font-size: 12px; color: #6B6459;" },
+                        wrapper_html: { style: "margin-bottom: 10px;" } %>
+            <%= f.input :password,
+                        required: true,
+                        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                        input_html: { autocomplete: "new-password", style: "border-radius: 10px; border: 1px solid #EDEAE2; padding: 8px 12px;" },
+                        label_html: { style: "font-size: 12px; color: #6B6459;" },
+                        hint_html: { style: "font-size: 11px; color: #9C9488;" },
+                        wrapper_html: { style: "margin-bottom: 10px;" } %>
+            <%= f.input :password_confirmation,
+                        required: true,
+                        input_html: { autocomplete: "new-password", style: "border-radius: 10px; border: 1px solid #EDEAE2; padding: 8px 12px;" },
+                        label_html: { style: "font-size: 12px; color: #6B6459;" },
+                        wrapper_html: { style: "margin-bottom: 14px;" } %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Sign up", class: "w-100", style: "background-color: #FEF0B8; color: #8A7A45; border: none; border-radius: 20px; padding: 10px; font-weight: 500;" %>
+          </div>
+        <% end %>
+
+        <div class="text-center mt-2" style="font-size: 12px;">
+          <%= render "devise/shared/links" %>
+        </div>
+
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
